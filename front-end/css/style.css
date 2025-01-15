@@ -1,0 +1,585 @@
+body{
+    font-family:Arial,sans-serif ;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: url(../imagens/teste10.jpg)no-repeat top center;
+    background-size: contain; 
+    background-attachment: scroll;
+
+}
+header{
+    background-color:#E63B65 ;
+    color: white;
+    padding: 2px 0;
+
+}
+.intro-text{
+    margin: 20px 0;
+    padding: 30px;
+    border-radius:10px ;
+    color: white;
+    font-weight: bold;
+
+}
+.highlight {
+    font-size: 80px;  /* Tamanho maior para a frase "AJUDE-NOS A SALVAR VIDAS" */
+    font-weight: bold;
+    color: white;  /* Cor rosa */
+}
+
+.subtext {
+    font-size: 24px;  /* Tamanho menor para a frase "Alguém especial está esperando por você." */
+    font-weight: normal;
+    color: white;  /* Cor branca */
+}
+
+.menu {
+    margin: 5px 0;
+    background-color: rgba(44, 42, 42, 0.416);
+}
+
+button {
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #E63B65;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Suaviza a transição */
+}
+
+button:hover {
+    background-color: white;
+    color: #E63B65;
+}
+
+/* Estilos para o modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Estilo para alinhar os labels à esquerda */
+#modal-cadastrar-pet .modal-content label {
+    text-align: left; /* Alinha o texto do label à esquerda */
+    display: block; /* Garante que o label ocupe uma linha inteira */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    width: 90%;
+    max-width: 1000px;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px; /* Espaçamento entre os itens */
+    position: relative;
+    overflow-y: auto;
+}
+
+.modal-content h2 {
+    font-size: 28px;
+    color: #E63B65;
+    margin-top: 0;
+}
+
+.modal-content form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+}
+
+/* Estilo para a imagem quadrada e ao lado do conteúdo */
+.modal-content img {
+    width: 300px; /* Tamanho fixo da imagem */
+    height: 300px; /* Tamanho fixo da imagem */
+    object-fit: cover; /* Garante que a imagem se ajuste corretamente dentro do quadrado */
+    margin-right: 20px; /* Espaçamento à direita da imagem */
+    border-radius: 10px; /* Bordas arredondadas */
+    border: 2px solid #ddd; /* Borda fina */
+}
+
+/* Ajustando o botão de fechar para ficar no modal */
+.close-btn {
+    background-color: #E63B65; /* Cor do botão */
+    color: white; /* Texto branco */
+    border: none; /* Remove borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 10px 15px; /* Espaçamento interno */
+    cursor: pointer; /* Cursor de clique */
+    font-size: 14px; /* Tamanho do texto */
+    position: absolute; /* Posição absoluta */
+    top: 10px; /* Distância do topo */
+    right: 10px; /* Distância da direita */
+    transition: background-color 0.3s ease-in-out; /* Animação suave */
+}
+
+.close-btn:hover {
+    background-color: #000; /* Cor ao passar o mouse */
+}
+
+#pets-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; /* Centraliza os itens no container */
+    padding: 0px;
+    margin-top: calc(100vh - 200px); /* Faz o #pets-list começar após a imagem */
+    width: 99.9%;
+    background-color: #fff; /* Fundo branco para destacar o conteúdo */
+}
+
+#pets-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Colunas de tamanho flexível, com largura mínima de 300px */
+    grid-gap: 40px; /* Reduz o espaçamento entre os cards */
+    justify-content: center; /* Centraliza os cards horizontalmente */
+    align-items: start; /* Alinha os cards ao topo */
+    margin: 0; /* Centraliza o container */
+    padding: -40px; /* Adiciona espaçamento interno */
+    width: 96%; /* Ocupa 100% da largura disponível */
+}
+
+.pet-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 2 colunas: 1 para a imagem e 1 para as informações do pet */
+    grid-template-rows: auto 1fr; /* 2 linhas: 1 para a imagem e o botão, 1 para as informações do pet */
+    grid-gap: 10px; /* Espaçamento pequeno entre os elementos do card */
+    width: 100%;
+    max-width: 350px; /* Limita a largura do card */
+    height: 180px; /* Altura reduzida do card */
+    border: 3px dashed #E63B65;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden; /* Evita que o conteúdo ultrapasse o card */
+}
+
+.pet-card:hover {
+    background-color: #47B460;
+    border-color: #47B460;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pet-foto {
+    grid-column: 1 / 2; /* Coloca a imagem na primeira coluna */
+    grid-row: 1 / 2; /* Coloca a imagem na primeira linha */
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    margin-bottom: 0; /* Remove espaço entre imagem e o botão */
+}
+
+.pet-info {
+    grid-column: 2 / 3; /* Coloca as informações na segunda coluna */
+    grid-row: 1 / 2; /* Coloca as informações na primeira linha */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 5px; /* Aproxima as informações do pet da imagem */
+}
+
+.pet-info h3 {
+    margin-top: 0;
+    color: #E63B65;
+    margin-bottom: 5px; /* Ajusta a distância entre o título e o texto */
+}
+
+.pet-info p {
+    margin: 0; /* Remove margens padrão para aproximar os parágrafos */
+    font-size: 0.9rem; /* Ajusta o tamanho da fonte para tornar o texto mais compacto */
+}
+
+.adote-me-btn {
+    grid-column: 1 / 2; /* Coloca o botão na mesma coluna da imagem */
+    grid-row: 2 / 3; /* Coloca o botão na segunda linha */
+    display: block;
+    padding: 8px 16px;
+    background-color: #E63B65;
+    color: #fff;
+    font-size: 0.9rem; /* Ajusta o tamanho da fonte do botão */
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 5px; /* Menos espaço entre o botão e a imagem */
+    align-self: center;
+}
+
+.adote-me-btn:hover {
+    background-color: #991738;
+}
+
+
+
+
+/* Estilos das abas */
+.tabs {
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 2px solid #ddd;
+    margin-top: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tab-button.active {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.adotante-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f9f9f9;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Garante que os elementos internos fiquem empilhados */
+    justify-content: space-between; /* Espaça os elementos para que ocupem a altura */
+    min-height: 130px; /* Define uma altura mínima consistente para os cartões */
+}
+
+.adotante-info h3 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.adotante-info p {
+    margin: 4px 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+#adotante-list {
+    background-color: #691AA2; /* Cor de fundo do adotante-list */
+    padding: 16px; /* Espaçamento interno */
+    border-radius: 8px; /* Arredonda os cantos do contêiner */
+    min-height: 100vh; /* Garante que ocupe a altura total da tela */
+    display: flex;
+    flex-direction: column; /* Organiza os itens verticalmente */
+    justify-content: flex-start; /* Alinha os itens no início verticalmente */
+    align-items: center; /* Centraliza os itens horizontalmente */
+}
+
+#adotante-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center; /* Centraliza os cartões horizontalmente */
+    width: 100%; /* Ocupa toda a largura disponível */
+    margin-top: 16px; /* Adiciona espaçamento acima do contêiner */
+}
+
+#adotante-list h1 {
+    text-align: center; /* Centraliza o texto horizontalmente */
+    color: #FFFFFF; /* Define a cor branca para o texto */
+    margin-bottom: 16px; /* Espaçamento abaixo do título */
+    font-size: 2rem; /* Ajusta o tamanho da fonte */
+    font-weight: bold; /* Destaca o texto */
+}
+
+#adotado-list {
+    background-color: #ACFFC1; /* Cor de fundo do adotante-list */
+    padding: 16px; /* Espaçamento interno */
+    border-radius: 8px; /* Arredonda os cantos do contêiner */
+    min-height: 100vh; /* Garante que ocupe a altura total da tela */
+    display: flex;
+    flex-direction: column; /* Organiza os itens verticalmente */
+    justify-content: flex-start; /* Alinha os itens no início verticalmente */
+    align-items: center; /* Centraliza os itens horizontalmente */
+}
+
+/* Estilos gerais para o modal */
+#modal-pet-adocao {
+    display: none; /* Inicialmente o modal está oculto */
+    position: fixed;
+    z-index: 1; /* Fica em cima de outros elementos */
+    left: 50%; /* Centraliza horizontalmente */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translate(-50%, -50%); /* Ajusta a centralização */
+    width: 80%; /* Largura ajustada para 80% da tela */
+    max-width: 400px; /* Limita o tamanho máximo */
+    height: auto; /* Ajusta a altura conforme o conteúdo */
+    background-color: #FFFFFF; /* Fundo branco */
+    padding: 20px; /* Espaçamento ao redor */
+    box-sizing: border-box; /* Inclui padding nas dimensões */
+    border-radius: 8px; /* Borda arredondada */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+}
+
+/* Fechar o modal */
+#modal-pet-adocao .close-modal-adocao {
+    color: #aaa;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+#modal-pet-adocao .close-modal-adocao:hover,
+#modal-pet-adocao .close-modal-adocao:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* Título do pet */
+#modal-pet-adocao .modal-titulo {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333; /* Cor mais suave */
+    text-align: center;
+}
+
+/* Informações do pet */
+#modal-pet-adocao .modal-informacoes {
+    font-size: 14px;
+    color: #555; /* Cor mais suave */
+    margin-bottom: 15px;
+}
+
+/* Estilo para cada informação */
+#modal-pet-adocao .modal-informacoes p {
+    margin: 5px 0;
+}
+
+/* Estilo do seletor de adotantes */
+#modal-pet-adocao .label-adotante {
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: block;
+    color: #333;
+}
+
+#modal-pet-adocao .select-adotante {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Estilo do botão de fazer adoção */
+#btn-fazer-doacao-adocao {
+    background-color: #28a745; /* Verde vibrante */
+    color: #fff; /* Texto branco */
+    padding: 12px 20px; /* Padding ajustado */
+    font-size: 16px;
+    font-weight: bold; /* Texto em negrito para mais destaque */
+    border: none;
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer;
+    width: 50%;
+    transition: background-color 0.3s ease; /* Efeito suave na cor */
+}
+
+#btn-fazer-doacao-adocao:hover {
+    background-color: #218838; /* Tom mais escuro de verde quando passa o mouse */
+}
+
+#btn-fazer-doacao-adocao:focus {
+    outline: none; /* Remove o contorno do foco */
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5); /* Adiciona uma sombra de foco verde */
+}
+
+/* Estilo para o botão de pausar música pequeno */
+#pause-music-btn-adocao {
+    background-color: #dc3545; /* Cor de fundo vermelha */
+    color: #fff; /* Texto branco */
+    padding: 6px 12px; /* Padding reduzido para um botão menor */
+    font-size: 14px; /* Fonte menor */
+    border: none;
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer;
+    width: auto; /* Largura automática para o botão */
+    transition: background-color 0.3s ease; /* Efeito suave na cor */
+}
+
+#pause-music-btn-adocao:hover {
+    background-color: #c82333; /* Tom mais escuro de vermelho quando passa o mouse */
+}
+
+#pause-music-btn-adocao:focus {
+    outline: none; /* Remove o contorno do foco */
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5); /* Adiciona uma sombra de foco vermelha */
+}
+
+/* Estilo para a imagem do pet com bordas arredondadas e tamanho 120px */
+#modal-pet-foto-adocao {
+    width: 120px; /* Definir o tamanho da imagem */
+    height: 120px; /* Manter a altura proporcional ao tamanho */
+    border-radius: 50%; /* Borda arredondada, criando uma imagem circular */
+    object-fit: cover; /* Garante que a imagem não distorça e preencha o espaço */
+    margin: 10px auto; /* Centraliza a imagem */
+    display: block; /* Garante que a imagem seja exibida como bloco */
+}
+
+/* Estilo para o label */
+.label-adotante-adocao {
+    font-size: 1.2rem; /* Aumenta o tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    margin-bottom: 10px; /* Adiciona espaçamento inferior */
+    display: block; /* Faz o label ocupar toda a linha */
+    color: #333; /* Cor do texto */
+}
+
+/* Estilo para o select */
+.select-adotante-adocao {
+    width: 100%; /* Ocupa toda a largura disponível */
+    padding: 12px 20px; /* Aumenta o preenchimento interno para tornar maior */
+    font-size: 1.1rem; /* Aumenta o tamanho da fonte */
+    border-radius: 8px; /* Borda arredondada */
+    border: 2px solid #007BFF; /* Borda azul */
+    background-color: #f8f9fa; /* Cor de fundo clara */
+    color: #495057; /* Cor do texto */
+    box-sizing: border-box; /* Inclui o padding no cálculo de largura */
+    transition: all 0.3s ease; /* Efeito suave de transição */
+}
+
+/* Estilo para o select ao focar (clicar ou selecionar) */
+.select-adotante-adocao:focus {
+    border-color: #0056b3; /* Cor da borda ao focar */
+    outline: none; /* Remove o contorno padrão */
+    background-color: #ffffff; /* Cor de fundo mais clara */
+}
+
+/* Estilo para a opção selecionada */
+.select-adotante-adocao option {
+    padding: 12px; /* Adiciona preenchimento às opções */
+    font-size: 1.1rem; /* Aumenta o tamanho da fonte das opções */
+}
+
+/* Adicionando uma sombra sutil ao redor do select */
+.select-adotante-adocao {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Efeito de hover nas opções */
+.select-adotante-adocao option:hover {
+    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+}
+
+#adotado-container {
+    display: flex;
+    flex-wrap: wrap;  /* Permite que os cartões quebrem para a próxima linha */
+    gap: 20px;  /* Espaçamento entre os cartões */
+    justify-content: center;  /* Centraliza os cartões */
+}
+
+.adocao-card p {
+    margin: 4px 0; /* Reduz o espaço entre os parágrafos */
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.adocao-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;  /* Largura do cartão */
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.adocao-card h3, .adocao-card h4 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.adocao-header, .adocao-body, .adocao-footer {
+    margin-bottom: 12px;
+}
+
+.adocao-image img {
+    width: 250px;
+    height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Responsividade - adapta os cartões em telas menores */
+@media (max-width: 768px) {
+    .adocao-card {
+        width: 100%;
+        max-width: 400px;
+    }
+}

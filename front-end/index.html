@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Adoção</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Sistema de Adoção</h1>
+    </header>
+    <main>
+        <section class="menu">
+            <button onclick="openModal('modal-cadastrar-pet')">Cadastrar Pet</button>
+            <button onclick="openModal('modal-cadastrar-adotante')">Cadastrar Adotante</button>
+        </section>
+        <section class="intro-text">
+            <p><span class="highlight">AJUDE-NOS A SALVAR VIDAS</span><br>
+                <span class="subtext">Alguém especial está esperando por você.</span></p>
+        </section>
+
+        <div id="pets-list" class="tab-content active">
+            <h1>Lista de Pets para adoção</h1>
+            <div id="pets-container"></div> <!-- Aqui os pets serão carregados -->
+        </div>
+
+        <div id="adotante-list" class="tab-content active">
+            <h1>Lista de adotantes</h1>
+            <div id="adotante-container"></div> <!-- Aqui os pets serão carregados -->
+        </div>
+
+        <div id="adotado-list" class="tab-content active">
+            <h1>Lista de adotados</h1>
+            <div id="adotado-container"></div> <!-- Aqui os pets serão carregados -->
+        </div>
+
+    </main>
+
+        <!-- Modal Cadastrar Pet -->
+        <div class="modal" id="modal-cadastrar-pet">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal('modal-cadastrar-pet')">Fechar</button>
+                <h2>Cadastrar Pet</h2>
+                <form id="form-cadastrar-pet" enctype="multipart/form-data">
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+
+                        <!-- Seção de foto do pet -->
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: flex-start;">
+                            <label for="foto-pet" style="font-weight: bold;">Foto do Pet:</label>
+                            <input type="file" id="foto-pet" name="foto" accept="image/*" required onchange="previewImage(event)"
+                                style="margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+
+                            <div style="text-align: center; margin-top: 10px;">
+                                <img id="image-preview" src="#" alt="Pré-visualização da imagem" 
+                                    style="max-width: 100%; display: none; border: 1px solid #ddd; border-radius: 8px;">
+                            </div>
+                        </div>
+
+                        <!-- Seção de informações do pet -->
+                        <div style="flex: 2; display: flex; flex-direction: column; gap: 15px;">
+
+                            <label for="nome-pet" style="font-weight: bold;">Nome do Pet:</label>
+                            <input type="text" id="nome-pet" name="nome" required placeholder="Digite o nome do pet"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+
+                            <label for="idade-pet" style="font-weight: bold;">Idade (anos):</label>
+                            <input type="number" id="idade-pet" name="idade" min="0" max="25" required placeholder="Idade em anos"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+
+                            <label for="especie-pet" style="font-weight: bold;">Espécie:</label>
+                            <select id="especie-pet" name="especie" required 
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Cachorro">Cachorro</option>
+                                <option value="Gato">Gato</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+
+                            <label for="raca-pet" style="font-weight: bold;">Raça (se aplicável):</label>
+                            <input type="text" id="raca-pet" name="raca" placeholder="Digite ou selecione a raça do pet"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;" 
+                                list="racas-sugestoes">
+
+                            <!-- Datalist para opções de raça -->
+                            <datalist id="racas-sugestoes">
+                                <option value="Labrador"></option>
+                                <option value="Poodle"></option>
+                                <option value="Pastor Alemão"></option>
+                                <option value="Golden Retriever"></option>
+                                <option value="Bulldog"></option>
+                                <option value="Beagle"></option>
+                                <option value="Siamês"></option>
+                                <option value="Persa"></option>
+                                <option value="Vira-lata"></option>
+                                <option value="Outro"></option>
+                            </datalist>
+
+                            <label for="descricao-pet" style="font-weight: bold;">Descrição:</label>
+                            <textarea id="descricao-pet" name="descricao" rows="4" placeholder="Descreva o pet"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Botão de cadastro -->
+                    <div class="form-actions" style="text-align: right; margin-top: 20px;">
+                        <button type="submit" 
+            style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">
+            Cadastrar
+        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+<!-- Modal Cadastrar Adotante -->
+        <div 
+            class="modal" 
+            id="modal-cadastrar-adotante" 
+            style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000;">
+            
+            <div 
+                class="modal-content" 
+                style="background-color: white; padding: 20px; border-radius: 8px; width: 400px; /* Largura mais estreita */
+                box-sizing: border-box; overflow-y: auto; position: relative; margin: 50px auto;">
+                
+                <!-- Botão de Fechar -->
+                <button class="close-btn" onclick="closeModal('modal-cadastrar-adotante')">Fechar</button>
+                
+                <!-- Título -->
+                <h2 style="text-align: center;">Cadastrar Adotante</h2>
+                
+                <form id="form-cadastrar-adotante" enctype="multipart/form-data">
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                        <!-- Seção de informações do adotante -->
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
+                            <!-- Campo de ID oculto (para atualização) -->
+                            <input type="hidden" id="adotante-id" name="id" value="">
+                            
+                            <label for="nome-adotante" style="font-weight: bold; text-align: left;">Nome do Adotante:</label>
+                            <input type="text" id="nome-adotante" name="nome" required placeholder="Digite o nome completo"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; width: 100%; box-sizing: border-box;">
+            
+                            <label for="telefone-adotante" style="font-weight: bold; text-align: left;">Telefone:</label>
+                            <input type="tel" id="telefone-adotante" name="telefone" required placeholder="Digite o telefone"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; width: 100%; box-sizing: border-box;">
+            
+                            <label for="email-adotante" style="font-weight: bold; text-align: left;">Email:</label>
+                            <input type="email" id="email-adotante" name="email" required placeholder="Digite o email"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; width: 100%; box-sizing: border-box;">
+            
+                            <label for="endereco-adotante" style="font-weight: bold; text-align: left;">Endereço:</label>
+                            <textarea id="endereco-adotante" name="endereco" rows="4" placeholder="Digite o endereço"
+                                style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; width: 100%; box-sizing: border-box;"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Botão de cadastro -->
+                    <div class="form-actions" style="text-align: right; margin-top: 20px;">
+                        <button type="submit" 
+                        style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">
+                        Cadastrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <audio id="audio-music-adocao" preload="auto">
+            <source src="imagens/Me Levacorte.mp3" type="audio/mp3">
+                Seu navegador não suporta o elemento de áudio.
+        </audio>
+
+        <div id="modal-pet-adocao" class="modal-adocao-unica">
+            <div class="modal-content-adocao">
+                <span class="close-modal-adocao">&times;</span>
+                <h2 id="modal-pet-nome-adocao" class="modal-titulo-adocao"></h2>
+                <img id="modal-pet-foto-adocao" src="" alt="Foto do Pet" class="modal-foto-pet-adocao" />
+                <div class="modal-informacoes-adocao">
+                    <p id="modal-pet-idade-adocao"></p>
+                    <p id="modal-pet-especie-adocao"></p>
+                    <p id="modal-pet-raca-adocao"></p>
+                    <p id="modal-pet-descricao-adocao"></p>
+                </div>
+                
+                <!-- Adicionando campo oculto para armazenar o ID do pet -->
+                <input type="hidden" id="pet-id" />
+                
+                <label for="adotante-select-adocao" class="label-adotante-adocao">Selecione o adotante:</label>
+                <select id="adotante-select-adocao" class="select-adotante-adocao">
+                    <option value="">Selecione um adotante</option>
+                </select>
+                
+                <button id="btn-fazer-doacao-adocao" class="btn-doacao-adocao">Fazer Adoção</button>
+                
+                <div class="controle-audio-adocao">
+                    <button id="pause-music-btn-adocao" class="btn-pausar-adocao">Pausar Música</button>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "flex";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        function previewImage(event) {
+            const preview = document.getElementById('image-preview');
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "#";
+                preview.style.display = 'none';
+            }
+        }
+    </script>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
